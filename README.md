@@ -1,0 +1,4 @@
+leiningen
+=========
+
+Installs Leiningen 
