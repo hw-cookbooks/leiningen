@@ -3,6 +3,7 @@
 # Recipe:: default
 #
 # Copyright 2010, Opscode, Inc.
+# Copyright 2013, Heavy Wayer Operations 
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -19,6 +20,12 @@
 include_recipe "java"
 
 jar_file ="#{node[:leiningen][:jar_dir]}/leiningen-#{node[:leiningen][:version]}-standalone.jar"
+
+if node[:leiningen][:version].split('.').first.to_i < 2
+  jar_url = "http://github.com/downloads/technomancy/leiningen/leiningen-#{leiningen[:version]}-standalone.jar"
+else
+  jar_url = "https://leiningen.s3.amazonaws.com/downloads/leiningen-#{leiningen[:version]}-standalone.jar"
+end
 
 remote_file "/usr/local/bin/lein" do
   source node[:leiningen][:install_script]
@@ -39,7 +46,7 @@ ruby_block "lein-system-wide" do
 end
 
 remote_file jar_file do
-  source node[:leiningen][:jar_url]
+  source jar_url
   owner "root"
   group "root"
   mode 0644
