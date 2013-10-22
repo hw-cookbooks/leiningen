@@ -22,9 +22,9 @@ include_recipe "java"
 jar_file ="#{node[:leiningen][:jar_dir]}/leiningen-#{node[:leiningen][:version]}-standalone.jar"
 
 if node[:leiningen][:version].split('.').first.to_i < 2
-  jar_url = "http://github.com/downloads/technomancy/leiningen/leiningen-#{leiningen[:version]}-standalone.jar"
+  jar_url = "http://github.com/downloads/technomancy/leiningen/leiningen-#{node[:leiningen][:version]}-standalone.jar"
 else
-  jar_url = "https://leiningen.s3.amazonaws.com/downloads/leiningen-#{leiningen[:version]}-standalone.jar"
+  jar_url = "https://leiningen.s3.amazonaws.com/downloads/leiningen-#{node[:leiningen][:version]}-standalone.jar"
 end
 
 remote_file "/usr/local/bin/lein" do
